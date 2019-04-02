@@ -39,6 +39,10 @@
      <f7-block-footer v-if="$f7.data.loggedIn === false" style="text-align: center; width: 95%; position: absolute; bottom: 0;">
       <f7-link href='/login/'>Login</f7-link>
     </f7-block-footer>
+
+    <f7-block-footer v-if="$f7.data.loggedIn === true" style="text-align: center; width: 95%; position: absolute; bottom: 0;">
+      <f7-link href='/logout/'>Log Out</f7-link>
+    </f7-block-footer>
   </f7-page>
 </template>
 
@@ -65,7 +69,7 @@ export default {
         body: this.body
       })
         .then(() => {
-          this.$f7.notification.create({
+          this.$f7.toast.create({
             // icon: '<i class="icon icon-f7"></i>',
             title: 'Shoutout!',
             titleRightText: 'now',

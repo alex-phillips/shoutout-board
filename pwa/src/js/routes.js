@@ -3,8 +3,6 @@ import HomePage from '../pages/home.vue'
 import LoginPage from '../pages/login.vue'
 import ShoutoutsPage from '../pages/shoutouts.vue'
 
-import DynamicRoutePage from '../pages/dynamic-route.vue'
-import RequestAndLoad from '../pages/request-and-load.vue'
 import NotFoundPage from '../pages/404.vue'
 
 var routes = [
@@ -27,6 +25,15 @@ var routes = [
   {
     path: '/shoutouts/',
     component: ShoutoutsPage
+  },
+  {
+    path: '/logout/',
+    redirect: function (route, resolve, reject) {
+      localStorage.clear()
+      this.app.data.loggedIn = true
+      resolve('/')
+      location.reload()
+    }
   },
   {
     path: '(.*)',

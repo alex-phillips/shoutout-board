@@ -120,7 +120,7 @@ export default {
     deleteShoutout (shoutout) {
       api.deleteShoutout(shoutout)
         .then(() => {
-          this.$f7.notification.create({
+          this.$f7.toast.create({
             // icon: '<i class="icon icon-f7"></i>',
             title: 'Shoutout!',
             titleRightText: 'now',
