@@ -1,3 +1,5 @@
 node_modules/
 .history/
 db.sqlite
+.env
+pwa/www

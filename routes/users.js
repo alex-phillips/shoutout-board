@@ -6,18 +6,20 @@ const auth = require('./auth')
 
 /* GET users listing. */
 router.get('/', auth.required, (req, res, next) => {
-  console.log(req)
-
-  User.findAll().then(users => res.json(users))
+  User.findOne({
+    where: {
+      id: req.authUser.id
+    }
+  }).then(users => res.json(users))
 })
 
 router.post('/', auth.optional, (req, res, next) => {
-  console.log(req.body)
   User.create(req.body)
     .then(user => res.json(user))
 })
 
 router.post('/login', auth.optional, (req, res, next) => {
+  req.body.username = req.body.username.toLowerCase()
   User.findOne({
     where: {
       username: req.body.username
@@ -37,6 +39,11 @@ router.post('/login', auth.optional, (req, res, next) => {
           return res.status(400).json({ error: true })
         })(req, res, next)
       }
+
+      res.status(401).json({ error: 'Your username or password is incorrect' })
+    })
+    .catch(() => {
+      res.status(401).json({ error: 'Your username or password is incorrect' })
     })
 })
 

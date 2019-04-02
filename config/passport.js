@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local')
 const { User } = require('./db')
 
 passport.use(new LocalStrategy({
-  username: 'user[email]',
+  username: 'user[username]',
   password: 'user[password]'
 }, (username, password, done) => {
   User.findOne({
@@ -13,7 +13,7 @@ passport.use(new LocalStrategy({
   })
     .then((user) => {
       if (!user || !user.validatePassword(password)) {
-        return done(null, false, { errors: { 'email or password': 'is invalid' } })
+        return done(null, false, { errors: { 'username or password': 'is invalid' } })
       }
 
       return done(null, user)

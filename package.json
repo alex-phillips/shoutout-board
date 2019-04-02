@@ -1,5 +1,5 @@
 {
-  "name": "shoutout-board",
+  "name": "shoutout-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,8 @@
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^7.0.0",
+    "emoji-unicode": "^1.0.10",
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
@@ -22,12 +24,15 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "sequelize": "^5.1.1",
-    "sqlite3": "^4.0.6"
+    "socket.io": "^2.2.0",
+    "sqlite3": "^4.0.6",
+    "twit": "^2.2.11"
   },
   "devDependencies": {
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.3",
-    "eslint-plugin-vue": "^5.2.2"
+    "eslint-plugin-vue": "^5.2.2",
+    "nodemon": "^1.18.10"
   }
 }

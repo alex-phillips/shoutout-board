@@ -1,0 +1,18 @@
+{
+  "plugins": {
+    "wral-twitter": {
+      "enabled": true,
+      "type": "twitter",
+      "params": {
+        "track": "#shoutoutapptest"
+      }
+    },
+    "trump-twitter": {
+      "enabled": false,
+      "type": "twitter",
+      "params": {
+        "track": "@realdonaldtrump"
+      }
+    }
+  }
+}
