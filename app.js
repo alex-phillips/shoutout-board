@@ -31,7 +31,7 @@ app.use(express.urlencoded({
 }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'pwa/www')))
-app.use(express.static(path.join(__dirname, 'kiosk')))
+app.use('/kiosk', express.static(path.join(__dirname, 'kiosk')))
 app.use(session({ secret: 'shoutout-board', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }))
 
 app.use('/', indexRouter)
