@@ -128,7 +128,7 @@ function newNote (body, id) {
   // newnote.draggable()
 
   notes.push(newnote)
-  if (notes.length > 20) {
+  if (notes.length > 15) {
     notes.shift().remove()
   }
   return false
@@ -140,7 +140,7 @@ function randomNumber (max) {
 
 $(document).ready(function () {
   // Get initial load notes
-  fetch('http://localhost:3000/shoutouts')
+  fetch('http://192.168.53.251:3000/shoutouts')
     .then(function (response) {
       return response.json()
     })
@@ -156,13 +156,13 @@ $(document).ready(function () {
       }
     })
 
-  $('#board').height($(document).height())
+  $('#board').height($(document).height() - 180)
 
   $('#add_new').click(newNote)
 
   $('.remove').click(deleteNote)
 
-  var socket = io('http://localhost:3000')
+  var socket = io('http://192.168.53.251:3000')
   socket.on('shoutout', function (shoutout) {
     console.log(shoutout.body)
     switch (shoutout.type) {
