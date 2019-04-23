@@ -23,45 +23,45 @@ steps:
     - push
     - tag
 
-- name: publish-pr
-  image: plugins/docker
-  settings:
-    tags:
-    - linux-amd64-pr
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-    dry_run: true
-  when:
-    ref:
-    include:
-    - refs/heads/*
-    event:
-    - pull_request
+# - name: publish-pr
+#   image: plugins/docker
+#   settings:
+#     tags:
+#     - linux-amd64-pr
+#     dockerfile: Dockerfile
+#     password:
+#       from_secret: docker_password
+#     repo: alexphillips/shoutout-board
+#     username:
+#       from_secret: docker_username
+#     dry_run: true
+#   when:
+#     ref:
+#     include:
+#     - refs/heads/*
+#     event:
+#     - pull_request
 
-- name: publish-branch
-  image: plugins/docker
-  settings:
-    tags:
-    - linux-amd64-dev
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-  when:
-    ref:
-    include:
-    - refs/heads/*
-    branch:
-      exclude:
-      - master
-    event:
-    - push
+# - name: publish-branch
+#   image: plugins/docker
+#   settings:
+#     tags:
+#     - linux-amd64-dev
+#     dockerfile: Dockerfile
+#     password:
+#       from_secret: docker_password
+#     repo: alexphillips/shoutout-board
+#     username:
+#       from_secret: docker_username
+#   when:
+#     ref:
+#     include:
+#     - refs/heads/*
+#     branch:
+#       exclude:
+#       - master
+#     event:
+#     - push
 
 ---
 kind: pipeline
@@ -88,45 +88,45 @@ steps:
     - push
     - tag
 
-- name: publish-pr
-  image: plugins/docker
-  settings:
-    tags:
-    - linux-arm-pr
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-    dry_run: true
-  when:
-    ref:
-    include:
-    - refs/heads/*
-    event:
-    - pull_request
+# - name: publish-pr
+#   image: plugins/docker
+#   settings:
+#     tags:
+#     - linux-arm-pr
+#     dockerfile: Dockerfile
+#     password:
+#       from_secret: docker_password
+#     repo: alexphillips/shoutout-board
+#     username:
+#       from_secret: docker_username
+#     dry_run: true
+#   when:
+#     ref:
+#     include:
+#     - refs/heads/*
+#     event:
+#     - pull_request
 
-- name: publish-branch
-  image: plugins/docker
-  settings:
-    tags:
-    - linux-arm-dev
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-  when:
-    ref:
-    include:
-    - refs/heads/*
-    branch:
-      exclude:
-      - master
-    event:
-    - push
+# - name: publish-branch
+#   image: plugins/docker
+#   settings:
+#     tags:
+#     - linux-arm-dev
+#     dockerfile: Dockerfile
+#     password:
+#       from_secret: docker_password
+#     repo: alexphillips/shoutout-board
+#     username:
+#       from_secret: docker_username
+#   when:
+#     ref:
+#     include:
+#     - refs/heads/*
+#     branch:
+#       exclude:
+#       - master
+#     event:
+#     - push
 
 ---
 kind: pipeline
@@ -153,45 +153,45 @@ steps:
     - push
     - tag
 
-- name: publish-pr
-  image: plugins/docker
-  settings:
-    tags:
-    - linux-arm64-pr
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-    dry_run: true
-  when:
-    ref:
-    include:
-    - refs/heads/*
-    event:
-    - pull_request
+# - name: publish-pr
+#   image: plugins/docker
+#   settings:
+#     tags:
+#     - linux-arm64-pr
+#     dockerfile: Dockerfile
+#     password:
+#       from_secret: docker_password
+#     repo: alexphillips/shoutout-board
+#     username:
+#       from_secret: docker_username
+#     dry_run: true
+#   when:
+#     ref:
+#     include:
+#     - refs/heads/*
+#     event:
+#     - pull_request
 
-- name: publish-branch
-  image: plugins/docker
-  settings:
-    tags:
-    - linux-arm64-dev
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-  when:
-    ref:
-    include:
-    - refs/heads/*
-    branch:
-      exclude:
-      - master
-    event:
-    - push
+# - name: publish-branch
+#   image: plugins/docker
+#   settings:
+#     tags:
+#     - linux-arm64-dev
+#     dockerfile: Dockerfile
+#     password:
+#       from_secret: docker_password
+#     repo: alexphillips/shoutout-board
+#     username:
+#       from_secret: docker_username
+#   when:
+#     ref:
+#     include:
+#     - refs/heads/*
+#     branch:
+#       exclude:
+#       - master
+#     event:
+#     - push
 
 ---
 kind: pipeline
