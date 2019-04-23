@@ -178,13 +178,11 @@ a:focus {
 }
 
 .note div.body-content {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
     position: relative;
+    float: left;
     top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 /* .note:nth-child(2n) {
     background: #faaaca;
