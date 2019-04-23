@@ -2,6 +2,7 @@
 import HomePage from '../pages/home.vue'
 import LoginPage from '../pages/login.vue'
 import ShoutoutsPage from '../pages/shoutouts.vue'
+import SettingsPage from '../pages/settings.vue'
 
 import NotFoundPage from '../pages/404.vue'
 
@@ -25,6 +26,18 @@ var routes = [
   {
     path: '/shoutouts/',
     component: ShoutoutsPage
+  },
+  {
+    path: '/settings/',
+    component: SettingsPage,
+    beforeEnter: function (routeTo, routeFrom, resolve, reject) {
+      if (this.app.data.loggedIn === false) {
+        this.app.dialog.alert('You must be logged in to do that!')
+        return reject()
+      }
+
+      return resolve()
+    }
   },
   {
     path: '/logout/',

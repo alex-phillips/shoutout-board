@@ -11,7 +11,10 @@
           link="/shoutouts/"
           title="Shoutouts"
           class="panel-close"></f7-list-item>
-          </f7-list>
+        <f7-list-item
+          link="/settings/"
+          title="Settings"
+          class="panel-close"></f7-list-item>
       </f7-list>
     </f7-page>
   </f7-panel>

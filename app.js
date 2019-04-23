@@ -9,6 +9,7 @@ const cors = require('cors')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const shoutoutsRouter = require('./routes/shoutouts')
+const settingsRouter = require('./routes/settings')
 
 require('dotenv').config()
 
@@ -37,6 +38,7 @@ app.use(session({ secret: 'shoutout-board', cookie: { maxAge: 60000 }, resave: f
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/shoutouts', shoutoutsRouter)
+app.use('/settings', settingsRouter)
 
 require('./config/passport')
 

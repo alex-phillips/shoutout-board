@@ -45,14 +45,50 @@
 * {
     box-sizing: border-box;
 }
-html, button, input, select, textarea {
-    color: #000;
+html, button, input, select, div.body-container {
+    /* color: #000; */
 }
 body {
+    overflow: hidden;
+    margin: 0;
     font-size: 1em;
     line-height: 1;
     background-color: rgba(255, 255, 255, 1);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(235, 235, 235, 1) 47%, rgba(222, 222, 222, 1) 100%);
+    /* background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(235, 235, 235, 1) 47%, rgba(222, 222, 222, 1) 100%); */
+    background: url(background.jpg) no-repeat;
+        /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 1080 !important;
+  height: 1920 !important;
+}
+body div#motd {
+    position: absolute;
+    top: 175px;
+    left: 3px;
+    background: url(hex_light_blue.png);
+    background-size: cover;
+    color: black;
+    text-align: center;
+}
+body div#motd p {
+    top: 10%;
+    position: absolute;
+    left: 9%;
+    font-family: "Bebas Neue";
+    font-size: 88px;
+    /* font-weight: bold; */
+    width: 320px;
+}
+body div#motd-body {
+    position: absolute;
+    top: 184px;
+    left: 35%;
+    width: 600px;
+    height: 200px;
+    font-family:"Verveine W01 Regular" !important;
+    font-size: 60px;
 }
 ::selection {
     background: #b3d4fc;
@@ -70,25 +106,36 @@ a:focus {
 }
 /* ========================================================================== Author's custom styles ========================================================================== */
 #board {
-    padding: 100px 30px 30px;
-    margin-top: 40px;
+    position: absolute;
+    margin-top: 575px;
     overflow-y: visible;
+    width: 1080px;
+    margin-left: 5px;
+}
+#board div.note:nth-child(4),
+#board div.note:nth-child(9) {
+    margin-left: 160.5625px !important;
 }
 .note {
     float: left;
     display: block;
     position: relative;
-    padding: 1em;
-    width: 300px;
-    min-height: 300px;
-    margin: 0 30px 30px 0;
-    background: linear-gradient(top, rgba(0, 0, 0, .05), rgba(0, 0, 0, .25));
+    padding: 0;
+    width: 38%;
+    height: 420;
+    margin: 0;
+    margin-top: -120px;
+    /* background: linear-gradient(top, rgba(0, 0, 0, .05), rgba(0, 0, 0, .25));
     background-color: #fffd75;
     box-shadow: 5px 5px 10px -2px rgba(33, 33, 33, .3);
     transform: rotate(2deg);
     transform: skew(-1deg, 1deg);
-    transition: transform 0.15s;
+    transition: transform 0.15s; */
     z-index: 1;
+    background: url(hex_green.png);
+    background-size: cover !important;
+    margin-right: -55px !important;
+    margin-left: -10px !important;
 }
 .note:hover {
     cursor: move;
@@ -100,36 +147,51 @@ a:focus {
     cursor: move;
     transition: transform 0.15s;
 }
-.note textarea {
+.note div.body-container {
     background-color: transparent;
     border: none;
     resize: vertical;
-    font-family: "Gloria Hallelujah", cursive;
-    width: 100%;
+    /* font-family: "Gloria Hallelujah", cursive; */
+    font-family:"Verveine W01 Regular" !important;
     padding: 5px;
     overflow: hidden;
+    position: absolute;
+    top: 100px;
+    left: 40px;
+    width: 320px;
+    height: 176px;
 }
-.note textarea:focus {
+.note div.body-container:focus {
     outline: none;
     border: none;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2) inset;
 }
-.note textarea.title {
-    font-size: 20px;
+.note div.body-container.body-container {
+    font-size: 42px;
     line-height: 1.2;
-    color: #000;
-    height: 240px;
+    /* color: #000; */
+    height: 220px;
     margin-top: 20px;
 }
-.note textarea.cnt {
+.note div.body-container.cnt {
     min-height: 200px;
 }
-.note:nth-child(2n) {
+
+.note div.body-content {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+/* .note:nth-child(2n) {
     background: #faaaca;
 }
 .note:nth-child(3n) {
     background: #69f098;
-}
+} */
 /* Button style */
 .button {
     font: bold 16px Helvetica, Arial, sans-serif;
@@ -183,4 +245,58 @@ a:focus {
     position: absolute;
     top: 20px;
     left: 20px;
+}
+
+.hex_blue {
+    background: url('hex_blue.png');
+}
+.hex_blue div.body-container {
+    color: white;
+}
+.hex_green {
+    background: url('hex_green.png');
+}
+.hex_green div.body-container {
+    color: black;
+}
+.hex_light_blue {
+    background: url('hex_light_blue.png');
+}
+.hex_light_blue div.body-container {
+    color: black;
+}
+.hex_orange {
+    background: url('hex_orange.png');
+}
+.hex_orange div.body-container {
+    color: white;
+}
+.hex_purple {
+    background: url('hex_purple.png');
+}
+.hex_purple div.body-container {
+    color: white;
+}
+.hex_red {
+    background: url('hex_red.png');
+}
+.hex_red div.body-container {
+    color: white;
+}
+.hex_yellow_green {
+    background: url('hex_yellow_green.png');
+}
+.hex_yellow_green div.body-container {
+    color: black;
+}
+
+img#qr-code {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 126px;
+}
+
+img.emoji {
+    width: 40px;
 }

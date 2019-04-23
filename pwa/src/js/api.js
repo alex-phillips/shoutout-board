@@ -1,6 +1,7 @@
 import Framework7 from 'framework7'
 
-let BASE_URL = 'http://192.168.52.161:3000'
+let BASE_URL = 'http://192.168.53.251:3000'
+// let BASE_URL = 'http://127.0.0.1:3000'
 
 export default {
   setToken (token) {
@@ -69,6 +70,31 @@ export default {
       method: 'DELETE',
       dataType: 'json'
     })
+  },
+
+  updateMOTD (header, body) {
+    return Framework7.request.promise({
+      url: `${BASE_URL}/settings`,
+      headers: this._getHeaders(),
+      method: 'PUT',
+      dataType: 'json',
+      data: {
+        identifier: 'motd_header',
+        value: header
+      }
+    })
+      .then(() => {
+        return Framework7.request.promise({
+          url: `${BASE_URL}/settings`,
+          headers: this._getHeaders(),
+          method: 'PUT',
+          dataType: 'json',
+          data: {
+            identifier: 'motd_body',
+            value: body
+          }
+        })
+      })
   },
 
   _getHeaders () {
