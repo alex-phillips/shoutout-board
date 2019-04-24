@@ -184,6 +184,15 @@ a:focus {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.note div.body-content.short-text {
+    font-size: 56px;
+}
+
+.note div.body-content.long-text {
+    font-size: 32px;
+}
+
 /* .note:nth-child(2n) {
     background: #faaaca;
 }

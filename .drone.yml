@@ -1,258 +1,112 @@
----
 kind: pipeline
-name: linux-amd64
-
-platform:
-  os: linux
-  arch: amd64
+name: default
 
 steps:
-- name: publish_image
-  image: plugins/docker
-  settings:
-    auto_tag: true
-    auto_tag_suffix: linux-amd64
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
+  # - name: publish-amd
+  #   image: plugins/docker
+  #   settings:
+  #     auto_tag: true
+  #     auto_tag_suffix: linux-amd64
+  #     dockerfile: Dockerfile
+  #     username:
+  #       from_secret: docker_username
+  #     password:
+  #       from_secret: docker_password
+  #     repo: alexphillips/shoutout-board
+  #   when:
+  #     event:
+  #       - push
+  #       - tag
 
-# - name: publish-pr
-#   image: plugins/docker
-#   settings:
-#     tags:
-#     - linux-amd64-pr
-#     dockerfile: Dockerfile
-#     password:
-#       from_secret: docker_password
-#     repo: alexphillips/shoutout-board
-#     username:
-#       from_secret: docker_username
-#     dry_run: true
-#   when:
-#     ref:
-#     include:
-#     - refs/heads/*
-#     event:
-#     - pull_request
+  - name: download-qemu
+    image: golang:1.10
+    pull: true
+    commands:
+      - GOARCH=amd64 QEMU_ARCH=amd64 make docker-download-qemu-binary
+      - GOARCH=arm QEMU_ARCH=arm make docker-download-qemu-binary
+      - GOARCH=arm64 QEMU_ARCH=aarch64 make docker-download-qemu-binary
+    when:
+      event:
+        - push
+        - tag
 
-# - name: publish-branch
-#   image: plugins/docker
-#   settings:
-#     tags:
-#     - linux-amd64-dev
-#     dockerfile: Dockerfile
-#     password:
-#       from_secret: docker_password
-#     repo: alexphillips/shoutout-board
-#     username:
-#       from_secret: docker_username
-#   when:
-#     ref:
-#     include:
-#     - refs/heads/*
-#     branch:
-#       exclude:
-#       - master
-#     event:
-#     - push
+  - name: register-qemu
+    image: multiarch/qemu-user-static:register
+    pull: true
+    privileged: true
+    commands:
+      - /register --reset
+    when:
+      event:
+        - push
+        - tag
 
----
-kind: pipeline
-name: linux-arm
+  - name: publish-arm
+    image: plugins/docker
+    settings:
+      auto_tag: true
+      auto_tag_suffix: linux-arm
+      dockerfile: Dockerfile.arm
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: alexphillips/shoutout-board
+      build_args:
+        -- TARGET=arm32v6
+    when:
+      event:
+        - push
+        - tag
 
-platform:
-  os: linux
-  arch: arm
-
-steps:
-- name: publish_image
-  image: plugins/docker
-  settings:
-    auto_tag: true
-    auto_tag_suffix: linux-arm
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
-
-# - name: publish-pr
-#   image: plugins/docker
-#   settings:
-#     tags:
-#     - linux-arm-pr
-#     dockerfile: Dockerfile
-#     password:
-#       from_secret: docker_password
-#     repo: alexphillips/shoutout-board
-#     username:
-#       from_secret: docker_username
-#     dry_run: true
-#   when:
-#     ref:
-#     include:
-#     - refs/heads/*
-#     event:
-#     - pull_request
-
-# - name: publish-branch
-#   image: plugins/docker
-#   settings:
-#     tags:
-#     - linux-arm-dev
-#     dockerfile: Dockerfile
-#     password:
-#       from_secret: docker_password
-#     repo: alexphillips/shoutout-board
-#     username:
-#       from_secret: docker_username
-#   when:
-#     ref:
-#     include:
-#     - refs/heads/*
-#     branch:
-#       exclude:
-#       - master
-#     event:
-#     - push
-
----
-kind: pipeline
-name: linux-arm64
-
-platform:
-  os: linux
-  arch: arm64
-
-steps:
-- name: publish_image
-  image: plugins/docker
-  settings:
-    auto_tag: true
-    auto_tag_suffix: linux-arm64
-    dockerfile: Dockerfile
-    password:
-      from_secret: docker_password
-    repo: alexphillips/shoutout-board
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
-
-# - name: publish-pr
-#   image: plugins/docker
-#   settings:
-#     tags:
-#     - linux-arm64-pr
-#     dockerfile: Dockerfile
-#     password:
-#       from_secret: docker_password
-#     repo: alexphillips/shoutout-board
-#     username:
-#       from_secret: docker_username
-#     dry_run: true
-#   when:
-#     ref:
-#     include:
-#     - refs/heads/*
-#     event:
-#     - pull_request
-
-# - name: publish-branch
-#   image: plugins/docker
-#   settings:
-#     tags:
-#     - linux-arm64-dev
-#     dockerfile: Dockerfile
-#     password:
-#       from_secret: docker_password
-#     repo: alexphillips/shoutout-board
-#     username:
-#       from_secret: docker_username
-#   when:
-#     ref:
-#     include:
-#     - refs/heads/*
-#     branch:
-#       exclude:
-#       - master
-#     event:
-#     - push
-
----
-kind: pipeline
-name: manifest
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: server
-  image: plugins/manifest
-  settings:
-    auto_tag: true
-    ignore_missing: true
-    password:
-      from_secret: docker_password
-    spec: manifest.tmpl
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
-
-depends_on:
-- linux-amd64
-- linux-arm
-- linux-arm64
-
----
-kind: pipeline
-name: manifest-dev
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: server
-  image: plugins/manifest
-  settings:
-    ignore_missing: true
-    password:
-      from_secret: docker_password
-    spec: manifest-dev.tmpl
-    username:
-      from_secret: docker_username
-  when:
-    ref:
-    include:
-    - refs/heads/*
-    branch:
-      exclude:
-      - master
-    event:
-    - push
-
-depends_on:
-- linux-amd64
-- linux-arm
-- linux-arm64
-
-...
+  # docker-setup:
+  #   image: golang:1.10
+  #   pull: true
+  #   commands:
+  #     - GOARCH=amd64 QEMU_ARCH=amd64 make docker-download-qemu-binary
+  #     - GOARCH=arm QEMU_ARCH=arm make docker-download-qemu-binary
+  #     - GOARCH=arm64 QEMU_ARCH=aarch64 make docker-download-qemu-binary
+  #   when:
+  #     event: [ push, tag ]
+  # docker-qemu-dl:
+  #   image: multiarch/qemu-user-static:register
+  #   pull: true
+  #   privileged: true
+  #   when:
+  #     event: [ push, tag ]
+  # docker-amd:
+  #   image: plugins/docker
+  #   pull: true
+  #   secrets: [ docker_username, docker_password ]
+  #   group: docker
+  #   repo: alexphillips/shoutout-board
+  #   tag: 'latest-linux-amd64'
+  #   build_args:
+  #     - TARGET=amd64
+  #   dockerfile: Dockerfile
+  #   when:
+  #     event: [ push, tag ]
+  # docker-arm:
+  #   image: plugins/docker
+  #   pull: true
+  #   secrets: [ docker_username, docker_password ]
+  #   group: docker
+  #   repo: alexphillips/shoutout-board
+  #   tag: 'latest-linux-arm'
+  #   build_args:
+  #     - TARGET=arm32v6
+  #   dockerfile: Dockerfile.arm
+  #   when:
+  #     event: [ push, tag ]
+  # # docker:
+  # #   image: plugins/docker:17.12
+  # #   pull: true
+  # #   secrets: [ docker_username, docker_password ]
+  # #   group: docker
+  # #   repo: gitea/gitea
+  # #   tag: 'latest-linux-arm64'
+  # #   build_args:
+  # #     - TARGET=arm64v8
+  # #   dockerfile: docker/Dockerfile.aarch64
+  # #   when:
+  # #     event: [ push, tag ]

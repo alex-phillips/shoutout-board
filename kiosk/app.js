@@ -71,6 +71,13 @@ function newNote (body, id) {
   // newnote.find('textarea').css('color', color.foregrounds[Math.floor(Math.random() * color.foregrounds.length)])
   // newnote.css('background', 'url(' + image + ')')
   newnote.addClass(image)
+
+  if (body.length < 28) {
+    newnote.find('div.body-content').addClass('short-text')
+  } else if (body.length > 80) {
+    newnote.find('div.body-content').addClass('long-text')
+  }
+
   newnote.find('div.body-content').html(twemoji.parse(body))
 
   console.log($(document).width())
