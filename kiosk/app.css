@@ -307,3 +307,15 @@ img#qr-code {
 img.emoji {
     width: 40px;
 }
+
+div#date {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 126px;
+    color: #eaf941;
+    text-align: right;
+    font-family: "Bebas Neue";
+    font-size: 62px;
+}
