@@ -1,6 +1,6 @@
 // https://codepen.io/edmondko/pen/udcHG
 
-var HOST_URL = '192.168.53.251:3000'
+var HOST_URL = '192.168.52.87:3000'
 
 var notes = []
 

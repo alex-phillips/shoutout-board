@@ -1,10 +1,8 @@
-FROM lsiobase/alpine:3.9
+FROM node
 
 COPY . /app
 
 RUN \
- apk update && \
- apk add nodejs npm python make musl-dev g++ && \
  cd /app && \
  npm install --no-dev && \
  cd pwa && \

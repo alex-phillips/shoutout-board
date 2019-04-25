@@ -1,6 +1,6 @@
 import Framework7 from 'framework7'
 
-let BASE_URL = 'http://192.168.53.251:3000'
+let BASE_URL = 'http://192.168.52.87:3000'
 // let BASE_URL = 'http://127.0.0.1:3000'
 
 export default {
